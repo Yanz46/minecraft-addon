@@ -3,225 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Addons Download</title>
+    <title>Minecraft Addon Request</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .addon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        .minecraft-font {
+            font-family: 'Press Start 2P', cursive;
         }
-        .password-form {
-            display: none;
+        
+        .block-pixel {
+            position: relative;
+            box-shadow: 0.25rem 0.25rem #000;
+        }
+        
+        .block-pixel:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 0.15rem 0.15rem #000;
+        }
+        
+        .input-pixel {
+            border: 3px solid #000;
+            box-shadow: inset 0 0 0 2px #8b8b8b;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
-    <header class="bg-gray-800 py-6 shadow-lg">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center">
-                <h1 class="text-3xl font-bold text-green-400">Minecraft Addons</h1>
-                <button id="adminBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition">
-                    Admin Panel
-                </button>
-            </div>
+<body class="bg-[#3b422c] min-h-screen">
+    <!-- Pixel Art Banner -->
+    <div class="relative overflow-hidden">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ce326093-e206-487b-b71f-218ee527f4ff.png" alt="Minecraft landscape with various game characters and addon elements like custom mobs, items and blocks" class="w-full object-cover h-48 sm:h-64" style="filter: brightness(0.8);">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <h1 class="minecraft-font text-white text-xl sm:text-3xl md:text-4xl text-center">
+                MINECRAFT ADDON REQUEST
+            </h1>
         </div>
-    </header>
+    </div>
 
+    <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
-        <!-- Password Form (Hidden by default) -->
-        <div id="passwordForm" class="password-form bg-gray-800 p-6 rounded-lg mb-8 max-w-md mx-auto">
-            <h2 class="text-xl font-bold mb-4 text-center">Admin Login</h2>
-            <div class="mb-4">
-                <label for="password" class="block mb-2">Password:</label>
-                <input type="password" id="password" class="w-full bg-gray-700 rounded-md px-4 py-2 text-white border border-gray-600 focus:border-green-500 focus:outline-none">
-            </div>
-            <button id="loginBtn" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition">
-                Login
-            </button>
-        </div>
-
-        <!-- Add Addon Form (Hidden by default) -->
-        <div id="addonForm" class="password-form bg-gray-800 p-6 rounded-lg mb-8 max-w-2xl mx-auto">
-            <h2 class="text-xl font-bold mb-4 text-center">Add New Addon</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="mb-4">
-                    <label for="addonName" class="block mb-2">Addon Name:</label>
-                    <input type="text" id="addonName" class="w-full bg-gray-700 rounded-md px-4 py-2 text-white border border-gray-600 focus:border-green-500 focus:outline-none">
-                </div>
-                
-                <div class="mb-4">
-                    <label for="addonLink" class="block mb-2">Download Link:</label>
-                    <input type="text" id="addonLink" class="w-full bg-gray-700 rounded-md px-4 py-2 text-white border border-gray-600 focus:border-green-500 focus:outline-none" placeholder="https://example.com/download">
-                </div>
-                
-                <div class="mb-4">
-                    <label for="addonVersion" class="block mb-2">Minecraft Version:</label>
-                    <input type="text" id="addonVersion" class="w-full bg-gray-700 rounded-md px-4 py-2 text-white border border-gray-600 focus:border-green-500 focus:outline-none" placeholder="1.20+">
-                </div>
-                
-                <div class="mb-4">
-                    <label for="addonSize" class="block mb-2">File Size (Optional):</label>
-                    <input type="text" id="addonSize" class="w-full bg-gray-700 rounded-md px-4 py-2 text-white border border-gray-600 focus:border-green-500 focus:outline-none" placeholder="12.5 MB">
-                </div>
-            </div>
-            
-            <div class="mb-4">
-                <label for="addonDescription" class="block mb-2">Description:</label>
-                <textarea id="addonDescription" class="w-full bg-gray-700 rounded-md px-4 py-2 text-white border border-gray-600 focus:border-green-500 focus:outline-none" rows="3"></textarea>
-            </div>
-            
-            <div class="mb-6">
-                <label for="addonImage" class="block mb-2">Image Upload:</label>
-                <input type="file" id="addonImage" accept="image/*" class="w-full">
-                <p class="text-gray-400 text-sm mt-1">Upload image for the addon (max 2MB)</p>
-            </div>
-            
-            <div class="flex justify-end space-x-3">
-                <button id="cancelAdd" class="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded-md transition">
-                    Cancel
-                </button>
-                <button id="saveAddon" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition">
-                    Save Addon
-                </button>
-            </div>
-        </div>
-
-        <!-- Addons List -->
-        <div class="mb-8">
-            <h2 class="text-2xl font-bold mb-6 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-                Featured Addons
+        <div class="max-w-2xl mx-auto bg-[#8a9a5b] border-4 border-[#5a6b3a] p-6 sm:p-8 block-pixel">
+            <h2 class="minecraft-font text-xl sm:text-2xl text-[#2c2c2c] mb-6">
+                REQUEST YOUR CUSTOM ADDON
             </h2>
             
-            <div id="addonsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Addons will be added here via admin panel -->
+            <!-- Request Form -->
+            <form action="https://formsubmit.co/narutoshipudhen97@gmail.com" method="POST" class="space-y-6">
+                <input type="hidden" name="_subject" value="New Minecraft Addon Request">
+                <input type="hidden" name="_template" value="table">
+                
+                <div>
+                    <label for="name" class="block minecraft-font text-sm text-[#2c2c2c] mb-2">YOUR NAME</label>
+                    <input type="text" id="name" name="name" required 
+                           class="w-full p-3 input-pixel bg-[#c4c4c4] minecraft-font text-sm focus:outline-none focus:bg-white">
+                </div>
+                
+                <div>
+                    <label for="email" class="block minecraft-font text-sm text-[#2c2c2c] mb-2">YOUR EMAIL (FOR UPDATES)</label>
+                    <input type="email" id="email" name="email" required 
+                           class="w-full p-3 input-pixel bg-[#c4c4c4] minecraft-font text-sm focus:outline-none focus:bg-white">
+                </div>
+                
+                <div>
+                    <label for="addon-type" class="block minecraft-font text-sm text-[#2c2c2c] mb-2">ADDON TYPE</label>
+                    <select id="addon-type" name="addon-type" 
+                            class="w-full p-3 input-pixel bg-[#c4c4c4] minecraft-font text-sm focus:outline-none focus:bg-white">
+                        <option value="mob">New Mob/Entity</option>
+                        <option value="block">New Block</option>
+                        <option value="item">New Item</option>
+                        <option value="dimension">New Dimension</option>
+                        <option value="mechanic">Gameplay Mechanic</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="description" class="block minecraft-font text-sm text-[#2c2c2c] mb-2">ADDON DESCRIPTION (BE SPECIFIC)</label>
+                    <textarea id="description" name="description" rows="5" required 
+                              class="w-full p-3 input-pixel bg-[#c4c4c4] minecraft-font text-sm focus:outline-none focus:bg-white"></textarea>
+                </div>
+                
+                <div class="flex justify-center">
+                    <button type="submit" 
+                            class="minecraft-font bg-[#4a5a2a] hover:bg-[#3a4a1a] text-white py-3 px-6 block-pixel transition-all duration-200">
+                        SUBMIT REQUEST
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Info Section -->
+        <div class="max-w-2xl mx-auto mt-12 bg-[#5a6b3a] border-4 border-[#3a4a1a] p-6 sm:p-8 block-pixel">
+            <div class="flex items-start gap-4">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7bf8464b-736f-4bb3-beab-ee7247c613ea.png" alt="Creeper face icon with green and black pixels" class="w-16 h-16 object-contain">
+                <div>
+                    <h3 class="minecraft-font text-lg text-white mb-3">HOW IT WORKS</h3>
+                    <ul class="space-y-2 text-[#d3d3d3] text-sm">
+                        <li>1. Fill out the request form with details about your custom addon</li>
+                        <li>2. Your request will be sent directly to my email</li>
+                        <li>3. I'll review your request and contact you for further details</li>
+                        <li>4. Once completed, I'll send you the addon files</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </main>
-
-    <footer class="bg-gray-800 py-6 mt-8">
-        <div class="container mx-auto px-4 text-center text-gray-400">
-            <p>© 2024 Minecraft Addons. All rights reserved. Not affiliated with Mojang or Microsoft.</p>
+    
+    <!-- Footer -->
+    <footer class="mt-16 py-6 bg-[#2c2c2c]">
+        <div class="container mx-auto px-4 text-center">
+            <p class="minecraft-font text-white text-xs sm:text-sm">
+                MINECRAFT ADDON REQUEST SERVICE © 2023
+            </p>
+            <p class="minecraft-font text-[#8a9a5b] text-xs mt-2">
+                NOT AFFILIATED WITH MOJANG OR MICROSOFT
+            </p>
         </div>
     </footer>
-
-    <script>
-        // Initialize addons from localStorage
-        let addons = JSON.parse(localStorage.getItem('minecraftAddons')) || [];
-
-        // DOM Elements
-        const adminBtn = document.getElementById('adminBtn');
-        const passwordForm = document.getElementById('passwordForm');
-        const addonForm = document.getElementById('addonForm');
-        const loginBtn = document.getElementById('loginBtn');
-        const passwordInput = document.getElementById('password');
-        const cancelAdd = document.getElementById('cancelAdd');
-        const saveAddon = document.getElementById('saveAddon');
-        const addonsContainer = document.getElementById('addonsContainer');
-        
-        // Correct password
-        const correctPassword = 'welcome';
-        
-        // Toggle password form
-        adminBtn.addEventListener('click', () => {
-            if (addonForm.style.display === 'block') {
-                addonForm.style.display = 'none';
-            }
-            passwordForm.style.display = passwordForm.style.display === 'block' ? 'none' : 'block';
-        });
-        
-        // Login function
-        loginBtn.addEventListener('click', () => {
-            if (passwordInput.value === correctPassword) {
-                passwordForm.style.display = 'none';
-                addonForm.style.display = 'block';
-                adminBtn.textContent = 'Admin Mode';
-                adminBtn.classList.remove('bg-green-600');
-                adminBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
-                passwordInput.value = '';
-            } else {
-                alert('Incorrect password. Try again.');
-                passwordInput.value = '';
-            }
-        });
-        
-        // Cancel addon form
-        cancelAdd.addEventListener('click', () => {
-            addonForm.style.display = 'none';
-            clearForm();
-        });
-        
-        // Save new addon
-        saveAddon.addEventListener('click', () => {
-            const name = document.getElementById('addonName').value;
-            const link = document.getElementById('addonLink').value;
-            const version = document.getElementById('addonVersion').value;
-            const size = document.getElementById('addonSize').value;
-            const description = document.getElementById('addonDescription').value;
-            const imageInput = document.getElementById('addonImage');
-            
-            if (!name || !link || !version) {
-                alert('Please fill in all required fields (Name, Download Link, Version)');
-                return;
-            }
-            
-            const file = imageInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    addAddonToPage(name, link, version, size, description, e.target.result);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                addAddonToPage(name, link, version, size, description, 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5a66fd38-2436-4129-91bd-1f8ef6fc5470.png');
-            }
-            
-            addonForm.style.display = 'none';
-            clearForm();
-        });
-        
-        // Helper function to add new addon to the page
-        function addAddonToPage(addon) {
-            const card = document.createElement('div');
-            card.className = 'addon-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300';
-            card.innerHTML = `
-                <div class="p-4 border-b border-gray-700">
-                    <img src="${addon.imageSrc}" alt="${addon.name} - Minecraft addon" class="w-full h-48 object-cover rounded-md">
-                </div>
-                <div class="p-4">
-                    <h3 class="text-xl font-bold mb-2">${addon.name}</h3>
-                    <p class="text-gray-400 mb-3">${addon.description || 'No description provided.'}</p>
-                    <div class="flex justify-between items-center text-sm text-gray-400 mb-3">
-                        <span>Version: ${addon.version}</span>
-                        ${addon.size ? `<span>Size: ${addon.size}</span>` : ''}
-                    </div>
-                    <a href="${addon.link}" target="_blank" class="block w-full bg-green-600 hover:bg-green-700 text-white text-center py-2 rounded-md transition">
-                        Download
-                    </a>
-                </div>
-            `;
-            
-            addonsContainer.prepend(card);
-        }
-        
-        // Load saved addons when page loads
-        window.addEventListener('DOMContentLoaded', () => {
-            addons.forEach(addon => addAddonToPage(addon));
-        });
-
-        // Clear form inputs
-        function clearForm() {
-            document.getElementById('addonName').value = '';
-            document.getElementById('addonLink').value = '';
-            document.getElementById('addonVersion').value = '';
-            document.getElementById('addonSize').value = '';
-            document.getElementById('addonDescription').value = '';
-            document.getElementById('addonImage').value = '';
-        }
-    </script>
 </body>
 </html>
 
